@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# download packages
+wget https://slackware.uk/slackware/slackware64-current/slackware64/d/python3-3.9.15-x86_64-1.txz
+wget https://slackware.uk/slackware/slackware64-current/slackware64/d/python-pip-22.2.2-x86_64-1.txz
+wget https://slackware.uk/slackware/slackware64-current/slackware64/d/binutils-2.39-x86_64-1.txz
+wget https://slackware.uk/slackware/slackware64-current/slackware64/d/gcc-12.2.0-x86_64-1.txz
+wget https://slackware.uk/slackware/slackware64-current/slackware64/l/glibc-2.36-x86_64-3.txz
+wget https://slackware.uk/slackware/slackware64-current/slackware64/d/kernel-headers-5.19.17-x86-1.txz
+
+# install / upgrade packages
+upgradepkg --install-new python3-3.9.15-x86_64-1.txz
+upgradepkg --install-new python-pip-22.2.2-x86_64-1.txz
+upgradepkg --install-new binutils-2.39-x86_64-1.txz
+upgradepkg --install-new gcc-12.2.0-x86_64-1.txz
+upgradepkg --install-new glibc-2.36-x86_64-3.txz
+upgradepkg --install-new kernel-headers-5.19.17-x86-1.txz
+# I had to build librsync from slackbuilds as I could not find it pre-compliled
+# https://www.linuxquestions.org/questions/slackware-14/slackbuild-instructions-aren%27t-working-4175655378/
+installpkg librsync-0.9.7-x86_64-1_SBo.tgz
+
+# Install rdiff-backup
+pip install rdiff-backup
+
+# Check version output - should be >rdiff-backup 2.0.5
+rdiff-backup -V
